@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>History</title>
+    <link rel="stylesheet" href="public/css/history.css">
+</head>
+<body>
+    <input type="date" id="tanggal"/>
+    <button onclick="cari()">Cari</button>
+    <table id="a">
+        
+        <tr>
+            <th>Ip Address</th>
+            <th>Refferer URL</th>
+            <th>Created At</th>
+            <!-- <th>Total Click</th> -->
+            <!-- <th>Action</th> -->
+        </tr>
+        
+    <tbody id="hasil"></tbody>
+        
+    </table>
+    <ul id="hasil">
+    
+    </ul>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+
+    <script async>
+        (async () => {
+            const link = '  http://localhost:3000/history'
+            const data = await axios.get(link, {
+                headers: {
+                    Authorization: localStorage.getItem('token')
+                }
+            })
+            const result = data.data
+            result.map(x => {
+                $('#hasil').append(`<tr>`)
+                const waktu = new Date(x.createdAt)
+                $('#hasil').append(`<td>${x.ip_adress}</td>`)
+                $('#hasil').append(`<td>${x.referrer_url}</td>`)
+                $('#hasil').append(`<td>${waktu}</td>`)
+                $('#hasil').append(`</tr>`)
+            })
+        })()
+        async function  cari(){ 
+            
+            const tanggal = $('#tanggal').val()
+            const link = `http://localhost:3000/group/${tanggal}`
+            const data = await axios.get(link, {
+                headers: {
+                    Authorization: localStorage.getItem('token')
+                }
+            })
+
+
+            const result = data.data.tracks
+            console.log(result)
+            $('#hasil').empty()
+            result.map(e => {
+                console.log(e)
+                $('#hasil').append(`<tr>`)
+                const waktu = new Date(e.createdAt)
+                $('#hasil').append(`<td>${e.ip_adress}</td>`)
+                $('#hasil').append(`<td>${e.referrer_url}</td>`)
+                $('#hasil').append(`<td>${waktu}</td>`)
+                $('#hasil').append(`</tr>`)
+            })
+            console.log('ini',result)
+        }
+    </script>
+    
+</body>
+</html>

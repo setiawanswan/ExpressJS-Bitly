@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Finish</title>
+    <link rel="stylesheet" href="public/css/finish.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Hello there!</h1>
+    </div>
+    <div class="welcome-section content-hidden">
+        <div class="content-wrap">
+            <ul class="fly-in-text">
+                <li>F</li>
+                <li>I</li>
+                <li>N</li>
+                <li>I</li>
+                <li>S</li>
+                <li>H</li>
+            </ul>
+            <a href="#" class="enter-button">Good Job!!</a>
+        </div>
+    </div>
+<script type="text/javascript">
+
+    $(function() {
+        let welcomeSection = $('.welcome-section'),
+        enterButton = welcomeSection.find('.enter-button');
+
+        setTimeout(function() {
+            welcomeSection.removeClass('content-hidden');
+        }, 800);
+
+        enterButton.on('click', function(e) {
+            e.preventDefault();
+            welcomeSection.addClass('content-hidden')
+        });
+    })
+
+
+</script>
+    
+</body>
+</html>

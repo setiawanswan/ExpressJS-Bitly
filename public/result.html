@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="public/css/result.css">
+    <title>Result</title>
+</head>
+
+<body>
+    <a href="history.html"><button>History</button>  </a>
+        <table id="a">
+                <tr>
+                    <th>Title</th>
+                    <th>Short-URL</th>
+                    <th>URL</th>
+                    <th>Total Click</th>
+                    <th>Action</th>
+                </tr>
+                <tbody id="hasil"></tbody>
+                  <!-- <th>Title</th> -->
+                  <!-- <th>Short-URL</th>  -->
+                  <!-- <th>URL</th> -->
+                
+              </table>
+    <!-- <ul id="hasil"> -->
+
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+ 
+    
+    <script async>
+            (async () => {
+                const link = 'http://localhost:3000/new'
+                const linkdel = 'http://localhost:3000/delshort/'
+                const data = await axios.get(link, {
+                    headers: {
+                        Authorization: localStorage.getItem('token')
+    
+                    }
+                })
+    
+                const result = data.data
+                result.map(x => {
+                    $('#hasil').append(`<tr>`)
+                    $('#hasil').append(`<td> ${x.title}</td> `)
+                    $('#hasil').append(`<td> ${x.short_url}</td> `)
+                    $('#hasil').append(`<td> ${x.url}</td> `)
+                    $('#hasil').append(`<td>Total Click = ${x.tracks.length}</td>`)
+                    $('#hasil').append(`<td><a href="edit.html?id=${x.id}"><button type="button" class="wak">Edit</button></a><button type="button" class="wak" id="hapus-${x.id}">Delete</td></button> `)
+                    $('#hasil').append(`</tr>`)
+                    const del = document.getElementById(`hapus-${x.id}`)
+    
+                    del.addEventListener('click', async () => {
+                       await axios.delete(linkdel + x.id, {
+                            headers: {
+                                Authorization: localStorage.getItem('token')
+                            }
+                        
+                        })
+                        window.location="finish.html"
+    
+                    })
+    
+                })
+    
+    
+    
+            })()
+    
+    
+        </script>
+</body>
+
+</html>

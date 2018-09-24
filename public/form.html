@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register</title>
+    <title>Sign Up</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: teal;
+        font-family: sans-serif
+    }
+
+    .form-wrap {
+        width: 320px;
+        background-color: cadetblue;
+        padding: 40px 20px;
+        box-sizing: border-box;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%)
+    }
+
+    h1 {
+        text-align: center;
+        color: darkslategray;
+        font-weight: normal;
+        margin-bottom: 20px
+    }
+
+    h2 {
+        text-align: center;
+        color: darkslategray;
+        font-weight: normal;
+        margin-bottom: 20px
+    }
+
+    input[type="text"] {
+        color: whitesmoke
+    }
+
+    input[type="email"] {
+        color: seashell
+    }
+
+    input[type='password'] {
+        color: seashell
+    }
+
+
+    input {
+        widows: 100%;
+        background: none;
+        border: 2px;
+        color: tan;
+        border-radius: 5px;
+        padding: 10px 43px;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+        font-size: 15px
+    }
+
+    input[type="text"] {
+        background-color: goldenrod;
+        border: 0;
+    }
+
+    input[type="email"] {
+        background-color: goldenrod;
+        border: 0;
+    }
+
+    input[type="password"] {
+        background-color: rgb(202, 202, 25);
+        border: 0;
+    }
+
+    input[type="button"] {
+        background-color: teal;
+        border: 0;
+        text-align: center
+    }
+</style>
+
+<body>
+
+    <div class="form-wrap">
+
+        <form>
+            <h1>REGIST</h1>
+            <h2></h2>
+            <input type="text" placeholder="First Name" id='firstName'>
+            <input type="text" placeholder="Last Name" id="lastName">
+            <input type="email" placeholder="Email" id="email">
+            <input type="password" placeholder="Password" id="password">
+            <input type="button" value="Done" id="kirim">
+
+        </form>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+
+    <script>
+        const kirim = document.getElementById('kirim')
+
+        const getValue = item = () => {
+
+        }
+        kirim.addEventListener('click', async () => {
+            const firstName = document.getElementById('firstName').value
+            const lastName = document.getElementById('lastName').value
+            const email = document.getElementById('email').value
+            const password = document.getElementById('password').value
+
+            try {
+                const data = await axios.post('http://localhost:3000/user', {
+                    firstName,
+                    lastName,
+                    email,
+                    password
+                })
+
+                console.log(data.data)
+                if (data.data) {
+                    localStorage.setItem('token', `Bearer ${data.data}`)
+                    window.location = 'cover.html'
+                }
+
+            } catch (error) {
+                console.log(error)
+            }
+
+
+
+        })
+
+    </script>
+
+
+</body>
+
+</html>

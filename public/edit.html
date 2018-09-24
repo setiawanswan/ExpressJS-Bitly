@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit</title>
+    <link rel="stylesheet" href="public/css/edit.css">
+
+</head>
+
+<body>
+    <form class="box" action="edit.html" method="post">
+        <H1>Change</H1>
+        <h2>*Your URL*</h2>
+        
+        <div id="judul">
+        <!-- <input type="text" name="title"  id="Title"> -->
+        </div>
+        
+        <div id="linkpendek">
+        <!-- <input type="text" name="short"  id="ShortURL"> -->
+        </div>
+        
+        <div id="linkpenuh">
+        <!-- <input type="text" name="url"  id="URL"> -->
+        </div>
+        
+     <button type="button" class="btn" id="update">Save</button>
+    </form>
+   
+    </div>
+    
+    
+    <ul id="content">
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+
+    <script async>
+        (async () => {
+            const kiw = window.location.href
+            console.log(kiw)
+            const yoi = kiw.split('id')
+            console.log(yoi)
+            const prikitiw = yoi ['1'].replace('=','')
+            console.log(prikitiw)
+            const link = 'http://localhost:3000/short/';
+            const linkUpdate = '  http://localhost:3000/putshort/';
+
+            // console.log(link)
+            
+            const linkurl = 'http://localhost:3000/short/id'
+    try {
+        const hasil = await axios.get(link + prikitiw, {
+            headers : {
+                Authorization: localStorage.getItem('token')
+            }
+        })
+        console.log(hasil)
+        const data = hasil.data
+        console.log(data)
+        $("#judul").append(`<input type='text' id="Title" value='${data.title}'>`)
+        $("#linkpendek").append(`<input type='text' id="ShortURL" value='${data.short_url}'>`)
+        $("#linkpenuh").append(`<input type='text' id="URL" value='${data.url}'>`)
+       
+
+    } catch (error) {
+        console.log(error)
+    }
+
+    const call = document.getElementById('update')
+    call.addEventListener('click', async() => {
+        // alert('udah')
+    const one = document.getElementById('Title').value
+    const two = document.getElementById('ShortURL').value
+    const three = document.getElementById('URL').value
+
+    const data = axios.put(linkUpdate + prikitiw, {
+        title: one,
+        short_url: two,
+        url: three
+        }, {
+            headers: {
+                Authorization: localStorage.getItem('token')
+            }
+        })
+        console.log(data.data)
+        window.location="finish.html"
+    })
+    
+        })()
+        
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+<!-- <script>
+
+
+        $('#btnadd').click(function () {
+            var _title = $('input[name="title"').val();
+            var _short = $('input[name="short"').val();
+            var _url = $('input[name="url"').val();
+
+            var _tr = '<tr><td>' + _title + '</td>  <td>' + _short + '</td> <td>' + _url + '</td></tr>';
+            $('#tbody').append(_tr)
+        });
+
+
+    </script> -->

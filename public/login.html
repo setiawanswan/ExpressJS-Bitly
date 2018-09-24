@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="public/css/style.css">
+    
+</head>
+
+<body>
+    <form class="box" action="login.html" method="post">
+
+        <h1>LOGIN</h1>
+        <h2></h2>
+        <input type="text" name="" placeholder="Email" id="Username">
+        <input type="text" name="" placeholder="Password" id="Password">
+        <input type="button" name="" value="SIGN IN" id="kirim">
+
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+
+    <script>
+        const kirim = document.getElementById('kirim')
+
+        const getValue = item = () => {
+
+        }
+        kirim.addEventListener('click', async () => {
+            const Username = document.getElementById('Username').value
+            const Code = document.getElementById('Password').value
+
+
+            try {
+                const data = await axios.post('http://localhost:3000/auth', {
+                    email: Username,
+                    password: Code
+
+                })
+
+                console.log(data.data)
+                console.log(data.data.token)
+                if (data.data.token) {
+                    localStorage.setItem('token', `Bearer ${data.data.token}`)
+                    window.location = 'short.html'
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        })
+    </script>
+</body>
+
+</html>

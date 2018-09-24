@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Short</title>
+    <link rel="stylesheet" href="public/css/short.css">
+</head>
+
+<body>
+    <form class="box" action="short.html" method="post">
+        <H1></H1>
+        <h2>Your URL</h2>
+        <input type="text" name="title" placeholder="Title" id="Title">
+        <input type="text" name="short" placeholder="ShortURL" id="ShortURL">
+        <input type="text" name="url" placeholder="URL" id="URL">
+        <!-- <input type="button" name="" value="" >  -->
+        <!-- <input type="button" name="" value="ADD" id="send"> -->
+        <button type="button" class="btn" id="btnadd">Add</button>
+        <!-- <button type="button2" class="btn" id="">Edit</button> -->
+        <!-- <button type="button1" class="btn" id="">Delete</button> -->
+       
+    </form>
+    
+    <!-- <div class="container1">
+       <a href="edit.html"> <input class="w3-btn w3-teal w3-round-xxlarge" type="button" value="Edit"></a>
+    </div>
+    
+    <div class="container2">
+        <input class="w3-btn w3-teal w3-round-xxlarge" type="button" value="Delete">
+    </div> -->
+    
+
+    <ul id="content">
+    </ul>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+
+
+
+    <script>
+        const kirim = document.getElementById('btnadd')
+        const getValue = item = () => {
+
+        }
+        kirim.addEventListener('click', async () => {
+            const Title = document.getElementById('Title').value
+            const ShortURL = document.getElementById('ShortURL').value
+            const URL = document.getElementById('URL').value
+            // const password = document.getElementById('password').value
+
+            try {
+                const data = await axios.post('http://localhost:3000/postshort', {
+                    title: Title,
+                    short_url: ShortURL,
+                    url: URL
+                }, {
+                        headers: {
+                            Authorization: localStorage.getItem('token')
+                        }
+                    })
+
+                console.log(data.data)
+                window.location.href="result.html"
+                // if (data.data.token) {
+                //     localStorage.setItem('token', `Bearer ${data.data.token}`)
+                //     window.location = 'result.html'
+                // }
+            } catch (error) {
+                console.log(error)
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>
