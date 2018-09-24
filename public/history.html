@@ -31,7 +31,7 @@
 
     <script async>
         (async () => {
-            const link = '  http://localhost:3000/history'
+            const link = ' https://setiawan-swan.herokuapp.com/history'
             const data = await axios.get(link, {
                 headers: {
                     Authorization: localStorage.getItem('token')
@@ -50,7 +50,7 @@
         async function  cari(){ 
             
             const tanggal = $('#tanggal').val()
-            const link = `http://localhost:3000/group/${tanggal}`
+            const link = `https://setiawan-swan.herokuapp.com/group/${tanggal}`
             const data = await axios.get(link, {
                 headers: {
                     Authorization: localStorage.getItem('token')

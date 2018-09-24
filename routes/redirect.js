@@ -18,7 +18,7 @@ const myhost = req.headers.host
     const show = await Shorts.findOne({
       where: { short_url: test }
     });
-    console.log(show.url);
+    console.log(show);
 
     track.create({
       uuid: show.id,
