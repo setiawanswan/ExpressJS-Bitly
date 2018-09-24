@@ -28,6 +28,7 @@ const myhost = req.headers.host
     });
     res.redirect(show.url);
   } catch (error) {
+    console.log(error)
     res.json(error)
     // ;tracks.createdAt
   }
