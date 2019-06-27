@@ -22,6 +22,8 @@ router.post('/', passport.authenticate('local'),(req,res)=>{
     })
 })
 
+rout
+
 
 
 module.exports = router

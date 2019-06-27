@@ -219,14 +219,9 @@ route.get("/user", passport.authenticate("jwt"), async (req, res) => {
 });
 
 //CRUD in Sequelize
-route.post(
-  "/user",
-  [
+route.post("/user",[
     check("email").isEmail(),
-    check("firstName")
-      .not()
-      .isEmpty()
-      .withMessage("can't be empty"),
+    check("firstName").not().isEmpty().withMessage("can't be empty"),
     check("lastName")
       .not()
       .isEmpty()
